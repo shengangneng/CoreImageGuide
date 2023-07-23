@@ -6,11 +6,10 @@
 //
 
 import UIKit
-import RxCocoa
 
 class BasicFilterGuideViewController: BaseCameraAndPhotoViewController {
     
-    let originalImage = UIImage(named: "scene.jpeg")
+    var originalImage = UIImage(named: "scene.jpeg")
     
     lazy var imageView: UIImageView = {
         var imageView = UIImageView(image: originalImage)
@@ -82,15 +81,30 @@ extension BasicFilterGuideViewController {
     
     @objc func chooseImage() {
         cameraAndAlbum { image in
+            self.originalImage = image
             self.imageView.image = image
         }
     }
     
     @objc func reset() {
-        print("1111")
+        imageView.image = originalImage
     }
     
     @objc func addFilter() {
-        print("1111")
+        addFilterToImage()
+    }
+    
+    func addFilterToImage() {
+        let filter = CIFilter(name: "CISepiaTone")
+        filter?.setValue(0.9, forKey: kCIInputIntensityKey)
+        let source = CIImage(image: self.originalImage!)
+        filter?.setValue(source, forKey: kCIInputImageKey)
+        
+        let context = CIContext()
+        guard let ciimage = filter?.outputImage?.cropped(to: source?.extent ?? CGRectZero) else {return }
+        guard let cgimage = context.createCGImage(ciimage, from: source?.extent ?? CGRectZero) else { return }
+        let uiimage =  UIImage(cgImage: cgimage, scale: 1, orientation: originalImage!.imageOrientation)
+        
+        imageView.image = uiimage
     }
 }
