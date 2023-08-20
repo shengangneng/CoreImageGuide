@@ -36,7 +36,6 @@ class BasicFilterGuideViewController: BaseCameraAndPhotoViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupKVO()
         setupAttributes()
         setupSubViews()
     }
@@ -79,22 +78,22 @@ class BasicFilterGuideViewController: BaseCameraAndPhotoViewController {
 
 extension BasicFilterGuideViewController {
     
-    @objc func chooseImage() {
+    @objc private func chooseImage() {
         cameraAndAlbum { image in
             self.originalImage = image
             self.imageView.image = image
         }
     }
     
-    @objc func reset() {
+    @objc private func reset() {
         imageView.image = originalImage
     }
     
-    @objc func addFilter() {
+    @objc private func addFilter() {
         addFilterToImage()
     }
     
-    func addFilterToImage() {
+    private func addFilterToImage() {
         let filter = CIFilter(name: "CISepiaTone")
         filter?.setValue(0.9, forKey: kCIInputIntensityKey)
         let source = CIImage(image: self.originalImage!)

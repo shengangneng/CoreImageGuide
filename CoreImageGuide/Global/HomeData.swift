@@ -13,7 +13,7 @@ struct HomeData {
         ["header":"图像处理", "item":[
             ["BasicFilterGuideViewController", "滤镜基本使用", "需要注意的是CIContext是重量级对象，应该进行复用"],
             ["CombineFilterViewController", "合并滤镜", "需要注意的是CIContext是重量级对象，应该进行复用"],
-            ["CombineFilterViewController", "视频使用滤镜", "使用AVVideoComposition对象在播放或导出期间将Core Image滤镜应用于视频的每一帧"],
+            ["VideoFilterViewController", "视频使用滤镜", "使用AVVideoComposition对象在播放或导出期间将Core Image滤镜应用于视频的每一帧"],
             ["MetalFilterViewController", "Metal渲染图片滤镜", "使用MetalKit试图（MTKView）渲染Core Image输出图像"]
         ]],
         // 脸部检测
